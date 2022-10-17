@@ -1,0 +1,36 @@
+.wrapper {
+  height: 50px;
+  width: 407px;
+  display: flex;
+  margin: 5px 20px;
+  padding: 5px 22px 5px 12px;
+  justify-content: flex-start;
+  align-items: center;
+  justify-items: center;
+  &:hover {
+    background-color: bisque;
+    border-radius: 10px;
+  }
+}
+
+.music-img {
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+}
+.item {
+  display: flex;
+  font-size: 1rem;
+  flex-direction: column;
+  padding: 0 0 0 12px;
+}
+.music-name {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.nick-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0.6;
+}

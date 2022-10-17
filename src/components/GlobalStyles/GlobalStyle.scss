@@ -1,0 +1,41 @@
+@import 'normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&family=Passions+Conflict&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+}
+:root {
+  --sidenavBc: #2a213a;
+  --sidePlayList: #120822;
+  --header: #170f23;
+  --background: #170f23;
+  --primary-color: #7200a1;
+  --primary-background: #432275;
+  --background-color: #432275;
+  --song-hover-color: #2a2139;
+  --background-white: #ffffff1a;
+  --text-decs-color: #ffffff80;
+  --border-primary: #ffffff1a;
+  --modal: #432275;
+  --white: #fff;
+}
+button,
+input,
+[tabindex] {
+  outline: none;
+  border: none;
+}
+a {
+  text-decoration: none;
+}
