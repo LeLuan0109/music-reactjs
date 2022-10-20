@@ -9,7 +9,7 @@ import { faCircleXmark, faMagnifyingGlass, faSpinner } from '@fortawesome/free-s
 
 import MusicItem from '~/components/MusicItem';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
-
+import Debounce from '~/components/Hooks/index';
 const cx = classNames.bind(styles);
 function Search() {
   const [searchResult, setSearchResult] = useState([]);
@@ -17,16 +17,18 @@ function Search() {
   const [showResult, setShowResult] = useState(true);
   const [loading, setLoading] = useState(false);
 
+  const debounceValue = Debounce(searchValue, 500);
+
   const inputRef = useRef();
 
   useEffect(() => {
     if (!searchValue.trim()) {
       setSearchResult([]);
-      console.log(!searchValue.trim());
+      console.log(!debounceValue.trim());
       return;
     }
     setLoading(true);
-    fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+    fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounceValue)}&type=less`)
       .then((ref) => ref.json())
       .then((ref) => {
         setSearchResult(ref.data);
@@ -35,7 +37,7 @@ function Search() {
       .catch(() => {
         setLoading(false);
       });
-  }, [searchValue]);
+  }, [debounceValue]);
 
   const handleClear = () => {
     setSearchValue('');
