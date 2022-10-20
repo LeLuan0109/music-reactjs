@@ -2,8 +2,8 @@ import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './Search.module.scss';
 
-import { useState, useEffect } from 'react';
-import Tippy from '@tippyjs/react/headless';
+import { useState, useEffect, useRef } from 'react';
+import HeadlessTippy from '@tippyjs/react/headless';
 
 import { faCircleXmark, faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
@@ -13,39 +13,75 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 const cx = classNames.bind(styles);
 function Search() {
   const [searchResult, setSearchResult] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
+  const [showResult, setShowResult] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  const inputRef = useRef();
 
   useEffect(() => {
-    setTimeout(() => {
+    if (!searchValue.trim()) {
       setSearchResult([]);
-    }, 0);
-  }, []);
+      console.log(!searchValue.trim());
+      return;
+    }
+    setLoading(true);
+    fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+      .then((ref) => ref.json())
+      .then((ref) => {
+        setSearchResult(ref.data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  }, [searchValue]);
+
+  const handleClear = () => {
+    setSearchValue('');
+    setShowResult([]);
+    inputRef.current.focus();
+  };
+  const handleHideResult = () => {
+    setShowResult(false);
+  };
   return (
-    <>
-      <Tippy
-        interactive
-        visible={searchResult.length > 0}
-        render={(attrs) => (
-          <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-            <PopperWrapper>
-              <h4 className={cx('search-title')}>Gợi ý kết quả</h4>
-              <MusicItem />
-            </PopperWrapper>
-          </div>
-        )}
-      >
-        <div className={cx('search')}>
-          <input placeholder="Tìm kiếm bài hát, tác giả, lời bài hát,..." spellCheck={false} />
-          <button className={cx('clear')}>
+    <HeadlessTippy
+      interactive
+      visible={showResult && searchResult.length > 0}
+      render={(attrs) => (
+        <div className={cx('search-result')} tabIndex="-1" {...attrs}>
+          <PopperWrapper>
+            <h4 className={cx('search-title')}>Gợi ý kết quả</h4>
+            {searchResult.map((result) => (
+              <MusicItem key={result.id} data={result} />
+            ))}
+          </PopperWrapper>
+        </div>
+      )}
+      onClickOutside={handleHideResult}
+    >
+      <div className={cx('search')}>
+        <input
+          ref={inputRef}
+          value={searchValue}
+          spellCheck={false}
+          placeholder="Tìm kiếm bài hát, tác giả, lời bài hát,..."
+          onChange={(e) => setSearchValue(e.target.value)}
+          onFocus={() => setShowResult(true)}
+        />
+        {!!searchValue && !loading && (
+          <button className={cx('clear')} onClick={handleClear}>
             <FontAwesomeIcon icon={faCircleXmark} />
           </button>
-          <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />
+        )}
+        {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
 
-          <button className={cx('search-btn')}>
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </button>
-        </div>
-      </Tippy>
-    </>
+        <button className={cx('search-btn')}>
+          <FontAwesomeIcon icon={faMagnifyingGlass} />
+        </button>
+      </div>
+    </HeadlessTippy>
   );
 }
 

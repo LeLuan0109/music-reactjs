@@ -5,13 +5,13 @@ import images from '~/assets/img';
 import Image from '~/components/Image';
 const cx = classNames.bind(styles);
 
-function MusicItem() {
+function MusicItem({ data }) {
   return (
     <div className={cx('wrapper')}>
-      <Image className={cx('music-img')} src={images.img} alt="haanhtuan" />
+      <Image className={cx('music-img')} src={data.avatar} alt={data.nickname} />
       <div className={cx('item')}>
-        <span className={cx('music-name')}>Tháng tư là lời nới dối của anh </span>
-        <span className={cx('nick-name')}>Hà Anh Tuấn</span>
+        <span className={cx('music-name')}>{data.full_name} </span>
+        <span className={cx('nick-name')}>{data.last_name}</span>
       </div>
     </div>
   );
