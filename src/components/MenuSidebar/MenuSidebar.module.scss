@@ -1,0 +1,35 @@
+.menu-item {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--white);
+  display: flex;
+  transition: all 0.3s ease-in-out;
+  height: 48px;
+
+  padding: 15px 20px;
+  width: 100%;
+
+  align-items: center;
+  &.active {
+    font-size: 1.3rem;
+    color: var(--white);
+    z-index: inherit;
+    background-color: var(--primary-color);
+    padding-left: 30px;
+    transition: all 0.7s ease-in-out;
+
+    &:hover {
+      border: 0;
+    }
+  }
+  &:hover {
+    border-radius: 2px;
+    padding-left: 30px;
+    font-size: 1.3rem;
+    background-color: var(--background-white);
+  }
+}
+
+.item-title {
+  padding-left: 10px;
+}

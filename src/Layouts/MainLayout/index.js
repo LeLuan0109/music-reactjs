@@ -1,5 +1,7 @@
 import Header from '~/Layouts/Component/Header/Header';
 import Sidebar from '~/Layouts/Component/Sidebar/Sidebar';
+import Music from '~/Layouts/Component/Music/Music';
+import MusicPlay from '../Component/MusicPlay/MusicPlay';
 import styles from './MainLayout.module.scss';
 import classNames from 'classnames/bind';
 
@@ -13,6 +15,10 @@ function MainLayout({ children }) {
       <div className={cx('container')}>
         <Sidebar />
         <div className={cx('content')}>{children}</div>
+        <div className={cx('music-song')}>
+          <Music />
+        </div>
+        <MusicPlay />
       </div>
     </div>
   );

@@ -1,6 +1,27 @@
 .wrapper {
+  position: fixed;
   display: flex;
-  height: 1000px;
-  width: 362px;
-  background-color: bisque;
+  min-height: 700px;
+  min-width: 240px;
+  font-size: 1.5rem;
+  background-color: var(--sidebar-primery);
+  box-shadow: 5px 5px 11px 0px #0000004d;
+}
+.inner {
+  height: auto;
+  width: 100%;
+  padding-top: 30px;
+}
+.category {
+  position: relative;
+  &::after {
+    // box-shadow: 0px 1px 18px 2px #ccc;
+    margin-left: 10px;
+    position: absolute;
+    content: ' ';
+    height: 2px;
+    width: 220px;
+    background-color: var(--background);
+    top: 20px;
+  }
 }

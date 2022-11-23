@@ -21,7 +21,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
-import config from '~/config/config';
+import config from '~/config/routes';
 import Search from '~/Layouts/Component/Search/Search';
 import Menu from '~/components/Menu/Menu';
 import Image from '~/components/Image';

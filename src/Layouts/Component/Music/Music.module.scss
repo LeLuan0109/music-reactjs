@@ -1,0 +1,83 @@
+.wrapper {
+  padding-top: 30px;
+  z-index: 10;
+  flex-direction: column;
+  background-color: transparent;
+  right: 0;
+  // position: fixed;
+  //   position: fixed;
+
+  min-height: 600px;
+  width: 350px;
+}
+.song {
+  cursor: pointer;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+  padding: 0 10px 0 15px;
+  display: flex;
+  margin-bottom: 10px;
+  &:hover {
+    transition: all 0.7s ease-in-out;
+    .ellips {
+      display: flex;
+    }
+    .heart {
+      display: flex;
+    }
+    background-color: #ed2b91;
+    border-radius: 3px;
+  }
+}
+.thumb {
+  display: flex;
+  justify-content: center;
+  width: 40px;
+  height: 44px;
+  background-size: cover;
+  border-radius: 2px;
+}
+.body {
+  padding-left: 10px;
+  .title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 24px;
+    width: 170px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+  .auther {
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 24px;
+    width: 170px;
+    font-size: 1rem;
+    opacity: 0.5;
+    font-weight: 700;
+  }
+}
+.actions {
+  transition: all 0.7s ease-in-out;
+  align-items: center;
+  display: flex;
+  margin-left: 40px;
+}
+
+.heart {
+  display: none;
+  color: #fff;
+  font-size: 1rem;
+}
+.ellips {
+  color: #fff;
+  display: none;
+  opacity: 0.8;
+  margin-left: 20px;
+  font-size: 1.2rem;
+}

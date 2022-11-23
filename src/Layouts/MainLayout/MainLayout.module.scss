@@ -18,5 +18,19 @@
 }
 
 .content {
+  position: relative;
+  margin-left: 320px;
+  z-index: 1;
   flex: 1;
+}
+.music-song {
+  right: 0;
+
+  z-index: 2;
+  display: flex;
+  right: 0;
+  height: 100%;
+  position: relative;
+  border-left: 1px solid var(--border-primary);
+  overflow: auto;
 }
