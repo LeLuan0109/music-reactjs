@@ -1,5 +1,4 @@
 .wapper {
-  padding-bottom: 20px;
   z-index: 2;
   max-height: 100px;
   background-color: var(--modal);
@@ -22,10 +21,6 @@
     border-radius: 50%;
   }
   .about {
-    width: 400px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     margin-left: 10px;
     font-size: 1rem;
     font-weight: 900;
@@ -41,7 +36,7 @@
   }
 }
 .action {
-  //   margin-left: 150px;
+  margin-left: 150px;
   min-width: 500px;
   flex-direction: column;
   display: flex;
@@ -71,28 +66,13 @@
   position: absolute;
 }
 
-.progress {
-  width: 100%;
-  -webkit-appearance: none;
-  height: 6px;
-  background: #d3d3d3;
+button,
+input,
+[tabindex] {
+  width: 640px;
   outline: none;
-  opacity: 0.7;
-  -webkit-transition: 0.2s;
-  transition: opacity 0.2s;
+  border: none;
 }
-
-.progress::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 6px;
-  /* background-color: var(--primary-color); */
-  background-color: #ec1f55;
-  cursor: pointer;
-  border-radius: 20%;
-}
-
 .more {
   margin-left: 200px;
 }

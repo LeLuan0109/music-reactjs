@@ -19,16 +19,36 @@
   display: flex;
   margin-bottom: 10px;
   &:hover {
-    transition: all 0.7s ease-in-out;
+    transition: all 0.2s ease-in-out;
     .ellips {
       display: flex;
     }
     .heart {
       display: flex;
     }
-    background-color: #ed2b91;
+    background-color: var(--background-white);
     border-radius: 3px;
   }
+}
+.song-active {
+  background-color: #ed2b91;
+  cursor: pointer;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+  padding: 0 10px 0 15px;
+  display: flex;
+  margin-bottom: 10px;
+
+  transition: all 0.7s ease-in-out;
+  .ellips {
+    display: flex;
+  }
+  .heart {
+    display: flex;
+  }
+  background-color: #ed2b91;
+  border-radius: 3px;
 }
 .thumb {
   display: flex;

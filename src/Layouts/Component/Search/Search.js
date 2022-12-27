@@ -24,7 +24,7 @@ function Search() {
   useEffect(() => {
     if (!searchValue.trim()) {
       setSearchResult([]);
-      console.log(!debounceValue.trim());
+
       return;
     }
     setLoading(true);
