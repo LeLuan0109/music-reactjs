@@ -88,7 +88,6 @@ function Header() {
   const [navBar, setNavBar] = useState(false);
 
   document.onscroll = () => {
-    console.log(document.documentElement.scrollTop || window.scrollY);
     const scroll = document.documentElement.scrollTop || window.scrollY;
     if (scroll >= 10) {
       setNavBar(true);

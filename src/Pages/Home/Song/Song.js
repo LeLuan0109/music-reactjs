@@ -1,12 +1,12 @@
 import classNames from 'classnames/bind';
-import styles from './Discover.scss';
-
+import styles from './Song.scss';
 const cx = classNames.bind(styles);
-function Discover() {
+function Song() {
   return (
     <div className={cx('wrapper')}>
-      <h2>Thư Viện</h2>
+      <h2>Thư viện trống</h2>
     </div>
   );
 }
-export default Discover;
+
+export default Song;

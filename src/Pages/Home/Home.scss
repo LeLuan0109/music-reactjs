@@ -1,0 +1,52 @@
+.library {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 20px;
+  margin-top: 15px;
+}
+.wrapper ul {
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  list-style: none;
+  display: flex;
+  width: 400px;
+  justify-content: space-between;
+}
+h2 {
+  color: #fff;
+}
+.wrapper ul li a {
+  text-transform: uppercase;
+  color: #fff;
+  display: inline-block;
+
+  padding: 12px 0;
+}
+
+.title {
+  margin-bottom: 32px;
+  border-bottom: 1px solid #ffffff1a;
+  width: 100%;
+  position: relative;
+}
+
+.mymusic-title-border {
+  height: 2px;
+  width: 158px;
+  left: 0;
+  transition: all ease 0.35s;
+
+  background-color: var(--primary-color--2);
+  position: absolute;
+}
+.song,
+.podcast,
+.album,
+.mv {
+  font-weight: 300;
+  font-size: 1rem;
+}
+.content {
+  width: 500px;
+}

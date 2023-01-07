@@ -9,74 +9,150 @@ import {
   faPlay,
   faRotateRight,
   faShuffle,
-  faEllipsisV,
+  faVolumeMute,
+  faVolumeUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { useContext, useEffect, useRef, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { playSong, pauseSong } from '~/Store/reducters/isPlaying.slice';
+import { changeRandom } from '~/Store/reducters/isRandom.slice';
+import { changeRepeat } from '~/Store/reducters/isRepeat.slice';
+import { Slice } from '@reduxjs/toolkit';
 import { songs } from '~/context';
 const cx = classNames.bind(styles);
 
 function MusicPlay() {
-  const { song, handleSetSong, setNextSong } = useContext(songs);
-
+  const { song, nextSong, prevSong, randomSong, indexsong } = useContext(songs);
+  const { isPlaying, isRandom, isRepeat } = useSelector((state) => state);
+  const dispatch = useDispatch();
   const [songCurrentTime, setSongCurrentTime] = useState(0);
   const [songDuration, setSongDuration] = useState(0);
 
-  const [status, setStatus] = useState(false);
-  const [isPlay, setIsPlay] = useState(false);
+  const [isMute, setIsMute] = useState(false);
+  const [volum, setVolum] = useState(100);
+  const [valueVolum, setValuevolum] = useState(100);
+
   const audioElement = useRef();
-  // next bài hát
-  var songCurrent = song.id;
-  const handleClickNext = () => {
-    setNextSong(song.id + 1);
+
+  // câp nhật thời gian bài hát
+  const convertTime = (time) => {
+    if (!time) return '00:00';
+    let minutes = Math.floor(time / 60);
+    let seconds = Math.floor(time - minutes * 60);
+    if (minutes < 10) {
+      minutes = '0' + minutes;
+    }
+    if (seconds < 10) {
+      seconds = '0' + seconds;
+    }
+    return `${minutes}:${seconds}`;
   };
 
-  // phát/ dừng bài hát khi ấn nút
-  const handlePLay = () => {
-    if (isPlay) {
-      setIsPlay(false);
+  // cập nhật thanh trạng thái nhạc
+  const onTimeUpdate = () => {
+    // tg dang chay
+    setSongCurrentTime(audioElement.current.currentTime);
+  };
+  const loadSong = () => {
+    // tg ket thuc
+    setSongDuration(audioElement.current.duration);
+  };
+  // xử lí âm thanh
+  const handleMuteSong = () => {
+    setIsMute(!isMute);
+    if (isMute !== true) {
+      audioElement.current.volume = 0;
     } else {
-      setIsPlay(true);
+      audioElement.current.volume = valueVolum;
     }
   };
-  useEffect(() => {
-    if (isPlay) {
-      setStatus(true);
-      audioElement.current.play();
-    } else {
-      setStatus(false);
-      audioElement.current.pause();
+  const handleChangeVolume = (e) => {
+    if (isMute) {
+      setIsMute(!isMute);
     }
-  }, [isPlay]);
-  // tụ động phát nhạc khi ấn vào bài hát
-  useEffect(() => {
-    if (song.id != 0) {
-      setStatus(true);
-      audioElement.current.play();
-    }
-  }, [song]);
+    setValuevolum(e.currentTarget.value / 100);
+    audioElement.current.volume = e.currentTarget.value / 100;
 
+    setVolum(e.currentTarget.value);
+  };
   // tua nhạc
   const handleChangeCurrentTime = (e) => {
     const currentTime = (e.currentTarget.value / 100) * songDuration;
     audioElement.current.currentTime = currentTime;
-    console.log(audioElement.current.currentTime);
 
     setSongCurrentTime(currentTime);
   };
-  // cập nhật thanh trạng thái nhạc
-  const onTimeUpdate = () => {
-    // tg ket thuc
-    setSongDuration(audioElement.current.duration);
-    // tg dang chay
-    setSongCurrentTime(audioElement.current.currentTime);
+
+  // xử lí phát nhạc
+  useEffect(() => {
+    if (!isPlaying) {
+      audioElement.current.pause();
+    } else {
+      audioElement.current.play();
+    }
+  }, [isPlaying, song]);
+  // xử lí nút play and pause
+  const handleClickPlayBtn = () => {
+    if (isPlaying) {
+      dispatch(pauseSong());
+    } else {
+      dispatch(playSong());
+    }
+  };
+  // next song
+  const handleNextSong = () => {
+    if (isRandom) {
+      randomSong();
+    } else {
+      nextSong();
+    }
+
+    dispatch(playSong());
+  };
+  // prev song
+  const handlePrevSong = () => {
+    if (isRandom) {
+      randomSong();
+    } else {
+      prevSong();
+    }
+
+    dispatch(playSong());
+  };
+  // xử lí on End
+  const onEndedSong = () => {
+    if (isRepeat) {
+      audioElement.current.currentTime = 0;
+      audioElement.current.play();
+    } else {
+      nextSong();
+      dispatch(playSong());
+    }
   };
 
+  useEffect(() => {
+    let currentItems = document.documentElement.querySelectorAll('#action');
+
+    currentItems.forEach((song) => {
+      song.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'nearest',
+      });
+    });
+  }, [song]);
   return (
     <div className={cx('wapper')}>
       <div className={cx('fullscreen')}>
-        <audio src={song.url} ref={audioElement} onTimeUpdate={onTimeUpdate}></audio>
+        <audio
+          src={song.url}
+          ref={audioElement}
+          onTimeUpdate={onTimeUpdate}
+          onLoadedMetadata={loadSong}
+          onEnded={onEndedSong}
+        ></audio>
 
-        <img className={cx('img-song')} src={song.links.images[1].url} alt="img" />
+        <img id={'songthum'} className={cx('img-song')} onAnimationEnd src={song.links.images[1]?.url} alt="img" />
         <div className={cx('about')}>
           <div className={cx('name-song')}>{song.name}</div>
           <div className={cx('author')}> {song.author} </div>
@@ -84,30 +160,55 @@ function MusicPlay() {
       </div>
       <div className={cx('action')}>
         <div className={cx('control')}>
-          <FontAwesomeIcon icon={faRotateRight} />
-          <FontAwesomeIcon icon={faBackwardStep} />
-          <div className={cx('play-song')}>
-            {status === false ? (
-              <FontAwesomeIcon className={cx('playing')} icon={faPlay} onClick={() => handlePLay()} />
+          <FontAwesomeIcon
+            onClick={() => dispatch(changeRepeat())}
+            className={isRepeat === true ? cx('active') : cx('')}
+            icon={faRotateRight}
+          />
+          <FontAwesomeIcon icon={faBackwardStep} onClick={handlePrevSong} />
+          <div className={cx('play-song')} onClick={handleClickPlayBtn}>
+            {isPlaying ? (
+              <FontAwesomeIcon className={cx('pause')} icon={faPause} />
             ) : (
-              <FontAwesomeIcon className={cx('pause')} icon={faPause} onClick={() => handlePLay()} />
+              <FontAwesomeIcon className={cx('playing')} icon={faPlay} />
             )}
           </div>
-          <FontAwesomeIcon icon={faForwardStep} onClick={handleClickNext} />
-          <FontAwesomeIcon icon={faShuffle} />
+          <FontAwesomeIcon icon={faForwardStep} onClick={handleNextSong} />
+          <FontAwesomeIcon
+            onClick={() => dispatch(changeRandom())}
+            className={isRandom === true ? cx('active') : cx('')}
+            icon={faShuffle}
+          />
         </div>
+        <div className={cx('status-bar-time')}>
+          <div className={cx('time-current-song')}> {convertTime(songCurrentTime) || '00:00'}</div>
+          <input
+            className={cx('progress')}
+            type="range"
+            value={(songCurrentTime / songDuration) * 100 || 0}
+            onChange={handleChangeCurrentTime}
+            step="1"
+            min="0"
+            max="100"
+          ></input>
+          <div className={cx('time-end-song')}> {convertTime(songDuration)}</div>
+        </div>
+      </div>
+      <div className={cx('more')}>
+        <div className={cx('icon-volum')} onClick={handleMuteSong}>
+          {/* khong co am thanh  */}
+          {volum == 0 || isMute ? <FontAwesomeIcon icon={faVolumeMute} /> : <FontAwesomeIcon icon={faVolumeUp} />}
+        </div>
+
         <input
-          className={cx('progress')}
-          type="range"
-          value={(songCurrentTime / songDuration) * 100 || 0}
-          onChange={handleChangeCurrentTime}
+          className={cx('volum')}
+          value={volum}
+          onChange={handleChangeVolume}
           step="1"
           min="0"
           max="100"
+          type="range"
         ></input>
-      </div>
-      <div className={cx('more')}>
-        <FontAwesomeIcon className={cx('ellips')} icon={faEllipsisV} />
       </div>
     </div>
   );

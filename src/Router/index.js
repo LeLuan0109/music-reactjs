@@ -10,7 +10,11 @@ import TopMusic from '~/Pages/TopMusic/TopMusic';
 import NewMusic from '~/Pages/NewMusic/NewMusic';
 import Category from '~/Pages/Category/Category';
 import MvMusic from '~/Pages/MV/MvMusic';
-
+// home-pages
+import Song from '~/Pages/Home/Song/Song';
+import Album from '~/Pages/Home/Album/Album';
+import HomMv from '~/Pages/Home/Mv/Mv';
+import Podcast from '~/Pages/Home/Podcast/Podcast';
 const publicRoute = [
   { path: config.routes.home, pat: Home },
   { path: config.routes.discover, pat: Discover },
@@ -30,5 +34,10 @@ const subRoute = [
   { path: config.routesExtra.top, pat: TopMusic },
   { path: config.routesExtra.mv, pat: MvMusic },
 ];
-
-export { publicRoute, subRoute };
+const subRouteHome = [
+  { path: config.routesHome.song, pat: Song },
+  { path: config.routesHome.mv, pat: HomMv },
+  { path: config.routesHome.album, pat: Album },
+  { path: config.routesHome.podcast, pat: Podcast },
+];
+export { publicRoute, subRoute, subRouteHome };

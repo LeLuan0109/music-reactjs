@@ -7,7 +7,7 @@ import HeadlessTippy from '@tippyjs/react/headless';
 
 import { faCircleXmark, faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
-import MusicItem from '~/components/MusicItem';
+import MusicItem from '~/components/MusicItemSearch';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import Debounce from '~/components/Hooks/index';
 const cx = classNames.bind(styles);
