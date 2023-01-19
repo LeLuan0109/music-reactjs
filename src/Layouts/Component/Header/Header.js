@@ -87,17 +87,17 @@ function Header() {
   const [currentUser, setCurrentUser] = useState(true);
   const [navBar, setNavBar] = useState(false);
 
-  document.onscroll = () => {
-    const scroll = document.documentElement.scrollTop || window.scrollY;
-    if (scroll >= 10) {
-      setNavBar(true);
-    } else {
-      setNavBar(false);
-    }
-  };
+  // document.onscroll = () => {
+  //   const scroll = document.documentElement.scrollTop || window.scrollY;
+  //   if (scroll >= 10) {
+  //     setNavBar(true);
+  //   } else {
+  //     setNavBar(false);
+  //   }
+  // };
 
   const handleMenuChange = (MenuItem) => {
-    console.log(MenuItem);
+    // console.log(MenuItem);
   };
 
   return (

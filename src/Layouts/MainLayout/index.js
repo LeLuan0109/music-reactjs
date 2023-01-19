@@ -11,14 +11,18 @@ function MainLayout({ children }) {
   return (
     <div className={cx('wrapper')}>
       <Header />
+      <div className={cx('mainlayout')}>
+        <div className={cx('title')}>
+          <div className={cx('container')}>
+            <Sidebar />
+            <div className={cx('content')}>{children}</div>
 
-      <div className={cx('container')}>
-        <Sidebar />
-        <div className={cx('content')}>{children}</div>
+            <MusicPlay />
+          </div>
+        </div>
         <div className={cx('music-song')}>
           <Music />
         </div>
-        <MusicPlay />
       </div>
     </div>
   );
