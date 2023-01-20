@@ -3,7 +3,7 @@ import { publicRoute } from '~/Router';
 import { songs } from './context';
 import { MainLayout } from '~/Layouts';
 import DataSong from './data/songs.json';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 function App() {
   const [song, setSong] = useState(DataSong[0]);
   const [indexSong, setIndexSong] = useState(0);

@@ -1,4 +1,4 @@
-import { Grid, Box } from '@mui/material';
+import { Grid } from '@mui/material';
 import styles from './Radio.scss';
 import classNames from 'classnames/bind';
 import CardList from '~/components/CardList';
@@ -81,41 +81,7 @@ const radio = [
   },
 ];
 
-const singers = [
-  {
-    id: 1,
-    image: '/images/ns-chi-dan.png',
-  },
-  {
-    id: 2,
-    image: '/images/ns-erik.png',
-  },
-
-  {
-    id: 3,
-    image: '/images/ns-huong-ly.png',
-  },
-  {
-    id: 4,
-    image: '/images/ns-jack.png',
-  },
-  {
-    id: 5,
-    image: '/images/ns-justatee.png',
-  },
-  {
-    id: 6,
-    image: '/images/ns-karik.png',
-  },
-  {
-    id: 7,
-    image: '/images/ns-mr-siro.png',
-  },
-  {
-    id: 8,
-    image: '/images/ns-trinh-thang-binh.png',
-  },
-];
+// +
 
 function Radio() {
   return (

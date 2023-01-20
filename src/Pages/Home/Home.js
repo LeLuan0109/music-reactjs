@@ -1,4 +1,3 @@
-import { NavLink, Outlet } from 'react-router-dom';
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Home.scss';
